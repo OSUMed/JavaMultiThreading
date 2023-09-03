@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import srikanth_assignment_8.com.coderscampus.assignment8.Assignment8;
+import srikanth_assignment_8.com.coderscampus.assignment8.NumberAPI;
 
 // Service provides ways for threads to do CPU tasks and call API for IO-tasks:
 public class ThreadService {
@@ -19,7 +19,7 @@ public class ThreadService {
 
 	public ThreadService() {
 		// Creates FetchingService which creates a connection to Assignment8:
-		fetchingService = new FetchingService(new Assignment8());
+		fetchingService = new FetchingService(new NumberAPI());
 	}
 
 	// Service that connects to API for IO based tasks:
@@ -58,6 +58,12 @@ public class ThreadService {
 		results.forEach((key, value) -> {
 			System.out.println("Integer: " + key + ", Count: " + value);
 		});
+	}
+	
+	// Clean up the Executors:
+	public void shutdown() {
+		cpuBoundTask.shutdown();
+		ioBoundTask.shutdown();
 	}
 
 }
